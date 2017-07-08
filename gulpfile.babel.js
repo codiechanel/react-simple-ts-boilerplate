@@ -13,10 +13,13 @@ function scriptsTs(done) {
   gutil.log(gutil.colors.green("scripts called."));
   var browserify = require("browserify");
   var fs = require("fs");
- var tsify = require('tsify');
+ var tsify = require('tsify')
+
+ var dependencies = ['react', 'react-dom'];
  
 return browserify()
     .add('./src/index.tsx')
+    .external(dependencies)
     .plugin(tsify, { noImplicitAny: true })
     .bundle()
     .on('error', function (error) { console.error(error.toString()); })
